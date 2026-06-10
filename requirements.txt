@@ -1,0 +1,15 @@
+# Web framework
+fastapi==0.103.1
+uvicorn==0.23.2
+pydantic==2.3.0
+
+# Core
+chromadb==0.5.5
+
+# Embeddings
+sentence-transformers==2.2.2
+torch>=2.0.1
+
+# Utilities
+numpy>=1.22.5,<2.0.0
+tqdm>=4.66.1
