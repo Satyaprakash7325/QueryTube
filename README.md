@@ -1,47 +1,35 @@
-# 🧠 YouTube Semantic Search
+# 🧠 QueryTube - Premium AI Semantic Search
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)
 ![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)
 ![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector%20Database-orange)
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
-![Stars](https://img.shields.io/github/stars/<your-username>/youtube-semantic-search?style=social)
 
-> 🚀 A semantic search engine that finds **YouTube videos by meaning**, not just keywords — built with FastAPI, ChromaDB, and Sentence Transformers.
-
----
-
-## 🌟 Features
-
-- 🎯 **Semantic Search:** Understands *meaning*, not just keywords  
-- 🧠 **Transformer Embeddings:** Uses `all-MiniLM-L6-v2` for vector encoding  
-- 💾 **Persistent Storage:** Powered by **ChromaDB**  
-- ⚡ **FastAPI Backend:** Handles search requests efficiently  
-- 🌐 **Frontend Integration:** Built with HTML, CSS, and JS  
-- 🖼️ **Smart Thumbnails:** Auto-fallback to YouTube logo when unavailable  
-- 🔒 **CORS Enabled:** Easy connection between frontend and backend  
+> 🚀 A premium semantic search engine that finds **YouTube videos by their true meaning**, not just keywords. Powered by AI Sentence Transformers, ChromaDB, and FastAPI, featuring a stunning glassmorphism UI.
 
 ---
 
-## 🏗️ Project Structure
+## 🌐 Live Demo
+- **Frontend Dashboard:** [https://Satyaprakash7325.github.io/QueryTube/frontened/index.html](https://Satyaprakash7325.github.io/QueryTube/frontened/index.html)
+- **Backend API:** Hosted live on Hugging Face Spaces `https://Satya73-querytube-api.hf.space`
 
-```
-youtube-semantic-search/
-│
-├── data/
-│   ├── Merged_Video_Transcript.csv       # Dataset with transcript info
-│   └── chroma_db/                        # Persistent ChromaDB storage
-│
-├── src/
-│   ├── embed.py                          # Embedding + ChromaDB storage
-│   └── main.py                           # FastAPI backend API
-│
-├── frontend/
-│   ├── index.html                        # Web interface
-│   ├── script.js                         # Frontend logic + API calls
-│   └── styles.css                        # Styling (optional)
-│
-└── README.md
-```
+## 🌟 Premium Features
+
+- 🎯 **True Semantic Search:** Understands the underlying *meaning* of your search, not just exact word matches.
+- 🎨 **Glassmorphism UI:** A custom-designed, dark-themed premium dashboard with dynamic neon ambient lighting.
+- 🎛️ **Advanced Diversity Filters:** Control "Channel Dominance" by selecting **Strict (Max 1 video per channel)** or **Moderate** filtering to discover a diverse range of creators.
+- ✨ **Intuitive Match Scores:** Automatically converts raw ChromaDB cosine distances into a highly intuitive `0% to 100% Match` percentage.
+- 📺 **Interactive Inline Player:** Click any video card to launch an instant popup modal to play the YouTube video directly inside the app without leaving the page.
+- 🧠 **Transformer Embeddings:** Uses `all-MiniLM-L6-v2` for precise vector encoding.
+- ⚡ **FastAPI Backend:** Blazing fast API bridging the frontend UI with the ChromaDB vector storage.
+
+---
+
+## 🖼️ Dashboard Preview
+
+![QueryTube Premium Interface](screenshot.png)
+
+*(A screenshot showing the dynamic match percentages, channel diversity controls, and interactive glassmorphism UI).*
 
 ---
 
@@ -49,132 +37,58 @@ youtube-semantic-search/
 
 | Component | Technology |
 |------------|-------------|
-| **Backend** | FastAPI |
-| **Database** | ChromaDB |
-| **Embedding Model** | SentenceTransformer (`all-MiniLM-L6-v2`) |
-| **Frontend** | HTML, CSS, JavaScript |
-| **Language** | Python 3.10+ |
+| **Backend API** | FastAPI (Python) |
+| **Vector Database** | ChromaDB |
+| **AI Embedding Model** | SentenceTransformer (`all-MiniLM-L6-v2`) |
+| **Frontend UI** | Vanilla HTML, CSS (Glassmorphism), JavaScript |
+| **Deployment** | GitHub Pages (Frontend) & Hugging Face Spaces (Backend) |
 
 ---
 
-## 🧩 Setup & Installation
+## 🧩 Local Setup & Installation
+
+If you want to run this locally on your own machine:
 
 ### 1️⃣ Clone Repository
 ```bash
-git clone https://github.com/<your-username>/youtube-semantic-search.git
-cd youtube-semantic-search
+git clone https://github.com/Satyaprakash7325/QueryTube.git
+cd QueryTube
 ```
 
-### 2️⃣ Create Virtual Environment
+### 2️⃣ Create Virtual Environment & Install
 ```bash
 python -m venv venv
-source venv/bin/activate       # macOS/Linux
 venv\Scripts\activate          # Windows
+source venv/bin/activate       # macOS/Linux
+
+pip install -r requirements.txt
 ```
 
-### 3️⃣ Install Dependencies
+### 3️⃣ Run the Backend Server
 ```bash
-pip install fastapi uvicorn chromadb sentence-transformers pandas
+uvicorn src.main:app --reload --port 8000
 ```
 
-### 4️⃣ Prepare Dataset
-Place your dataset at:
-```
-data/Merged_Video_Transcript.csv
-```
-Ensure it includes:
-`id`, `title`, `channel_title`, `description`, `transcript`, `thumbnail_high`
-
-### 5️⃣ Generate Embeddings
-```bash
-python src/embed.py
-```
-✅ Creates vector database in `data/chroma_db/`
-
-### 6️⃣ Run Backend Server
-```bash
-uvicorn src.main:app --reload
-```
-API: [http://127.0.0.1:8000](http://127.0.0.1:8000)
-
-### 7️⃣ Launch Frontend
-Open `frontend/index.html` in your browser and start searching 🔍
-
----
-
-## 📡 API Endpoints
-
-| Method | Endpoint | Description |
-|---------|-----------|-------------|
-| `GET` | `/search?query=<text>&top_k=5` | Returns top relevant YouTube videos |
-
-**Example Response**
-```json
-{
-  "query": "machine learning basics",
-  "results": [
-    {
-      "rank": 1,
-      "title": "Intro to Machine Learning",
-      "channel_title": "Simplilearn",
-      "description": "An overview of ML concepts...",
-      "url": "https://www.youtube.com/watch?v=abcd1234",
-      "thumbnail": "https://i.ytimg.com/vi/abcd1234/hqdefault.jpg",
-      "similarity_score": 0.873
-    }
-  ]
-}
-```
+### 4️⃣ Launch the Frontend
+Open `frontened/index.html` via VS Code Live Server or a simple HTTP server to start searching!
 
 ---
 
 ## 💡 How It Works
 
-### 🔹 Embedding Phase (`embed.py`)
-- Loads dataset  
-- Cleans missing data  
-- Generates vector embeddings using `SentenceTransformer`  
-- Stores in **ChromaDB** using cosine similarity  
+1. **Embedding Phase (`src/embed_data.py`)**  
+   The system loads the YouTube transcript dataset, cleans the data, and generates highly accurate semantic vector embeddings using the `SentenceTransformer` model, storing them into the local **ChromaDB**.
 
-### 🔹 Search Phase (`main.py`)
-- Takes user query  
-- Encodes into a semantic vector  
-- Finds top-k similar videos  
-- Returns metadata to frontend  
+2. **Search Phase (`src/main.py`)**  
+   The FastAPI server intercepts user searches, converts the query text into a semantic vector in real-time, and performs a rapid Cosine Distance similarity check against the ChromaDB storage.
+
+3. **Client-Side Rendering (`frontened/script.js`)**  
+   The frontend receives the matches, instantly converts the distance scores into user-friendly Match Percentages, applies Channel Diversity filtering (to prevent one channel from spamming the results), and dynamically renders the stunning UI.
 
 ---
 
-## 🖼️ Screenshots
+## 🧾 License & Support
 
-| Interface | Description |
-|------------|-------------|
-| ![YouTube Logo](https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg) | Minimal Search Interface |
-| *(Coming Soon)* | Semantic Search Results View |
-
----
-
-## 🔮 Future Enhancements
-
-- ✅ Add result pagination  
-- 🧩 Support for multiple channels  
-- 📊 Integrate LangChain for advanced retrieval  
-- ☁️ Deploy via Render / Vercel / HuggingFace Spaces  
-
----
-
-## 🧾 License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-## ⭐ Support
-
-If you found this project helpful:
-- Star ⭐ the repository  
-- Contribute 🤝 via PRs  
-- Share your feedback 💬  
-
----
-
-**Made with ❤️ using FastAPI, Sentence Transformers, and ChromaDB**
+This project is open-source. If you found it helpful or inspiring:
+- Star ⭐ the repository!
+- Feel free to Fork and contribute!
