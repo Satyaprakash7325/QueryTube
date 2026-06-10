@@ -1,3 +1,11 @@
+---
+title: Querytube Api
+emoji: 🚀
+colorFrom: blue
+colorTo: purple
+sdk: docker
+pinned: false
+---
 # 🧠 QueryTube - Premium AI Semantic Search
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)
