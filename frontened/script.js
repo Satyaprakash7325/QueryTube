@@ -1,4 +1,4 @@
-const BACKEND_URL = "http://127.0.0.1:8000";
+const BACKEND_URL = "https://Satya73-querytube-api.hf.space";
 let allResults = []; // Store raw results globally to filter & sort client-side instantly
 
 // Elements
